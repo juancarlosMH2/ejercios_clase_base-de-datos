@@ -1,0 +1,20 @@
+Crear una tabla temporal con todas la tareas de prioridad media y que muestre el nombre de la
+prioridad (NO EL ID) y debemos crear una tabla temporal de esa consulta. 
+HACERLO DENTRO DE UNA TRANSACCIÓN.
+
+BEGIN;
+
+CREATE TEMPORARY TABLE tasks_medium_priority AS
+SELECT
+    tasks.title,
+    priorities.p_name
+FROM tasks
+INNER JOIN priorities ON tasks.pid = priorities.pid
+WHERE priorities.pid = '2';
+
+SELECT
+    p_name AS priority,
+    title AS title_task
+FROM tasks_medium_priority;
+
+ROLLBACK;
